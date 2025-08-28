@@ -13,41 +13,116 @@
     .survey-card { background: white; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
     .survey-header { padding: 30px; text-align: center; background: linear-gradient(45deg, #667eea, #764ba2); color: white; }
     .survey-content { padding: 30px; }
-    .question { margin-bottom: 25px; padding: 20px; background: #f8f9ff; border-radius: 15px; border-left: 4px solid #667eea; }
-    .radio-group { display: flex; flex-direction: column; gap: 10px; }
-    .radio-option { display: flex; align-items: center; padding: 10px 15px; border: 2px solid #e0e0e0; border-radius: 10px; background: white; cursor: pointer; }
-    .radio-option input { margin-right: 10px; transform: scale(1.2); }
-    .submit-btn { width: 100%; padding: 15px; background: linear-gradient(45deg, #667eea, #764ba2); color: white; border: none; border-radius: 10px; margin-top: 20px; cursor: pointer; }
-    .success-message { display: none; background: #d4edda; color: #155724; padding: 15px; border-radius: 10px; margin-top: 20px; }
-    .qr-section { text-align: center; margin-top: 30px; padding: 20px; background: #f8f9ff; border-radius: 15px; }
+    .question { margin-bottom: 25px; }
+    .question h3 { color: #333; margin-bottom: 10px; font-weight: 600; }
+    .radio-group, .checkbox-group { display: flex; flex-wrap: wrap; gap: 10px; }
+    .radio-option, .checkbox-option {
+      background-color: #f0f0f0;
+      padding: 12px 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      font-size: 0.9em;
+      color: #555;
+    }
+    .radio-option:hover, .checkbox-option:hover { background-color: #e0e0e0; transform: translateY(-2px); }
+    .radio-option input[type="radio"], .checkbox-option input[type="checkbox"] { display: none; }
+    .radio-option input[type="radio"]:checked + span::before, .checkbox-option input[type="checkbox"]:checked + span::before {
+      content: '✓';
+      display: inline-block;
+      margin-right: 5px;
+      color: #764ba2;
+      font-size: 1.2em;
+    }
+    .radio-option input[type="radio"]:checked, .checkbox-option input[type="checkbox"]:checked {
+      background-color: #764ba2;
+      color: white;
+    }
+    .radio-option input[type="radio"]:checked + span, .checkbox-option input[type="checkbox"]:checked + span { color: white; }
+    .text-input { width: 95%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em; }
+    .text-input:focus { outline: none; border-color: #764ba2; box-shadow: 0 0 5px rgba(118, 75, 162, 0.5); }
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: #764ba2;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .submit-btn:hover { background: #5c3882; }
+    .qr-section { text-align: center; margin-top: 30px; padding: 20px; background: white; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .qr-code { width: 200px; height: 200px; margin: 20px auto; }
+    .success-message {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
-      <h1>🔐 Administrator Survey</h1>
-      <p>Campus security and authentication assessment</p>
+      <h1>Administrator Survey</h1>
+      <p>Share your insights on managing campus ID and verification processes.</p>
     </div>
 
     <div class="survey-card">
+      <div class="survey-header">
+        <h2>Admin Feedback</h2>
+      </div>
+
       <div class="survey-content">
-        <form id="adminForm" method="POST" action="save_admin_data.php">
+        <form id="adminForm" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="d848b72f-0818-4483-82d1-7a020667327e">
+
           <div class="question">
-            <h3>1. How foolproof is it for you to authenticate student's attendance?</h3>
-            <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="attendance_auth" value="very_foolproof" required> Very foolproof</label>
-              <label class="radio-option"><input type="radio" name="attendance_auth" value="mostly_foolproof" required> Mostly foolproof</label>
-              <label class="radio-option"><input type="radio" name="attendance_auth" value="somewhat_foolproof" required> Somewhat foolproof</label>
-              <label class="radio-option"><input type="radio" name="attendance_auth" value="not_very_foolproof" required> Not very foolproof</label>
-              <label class="radio-option"><input type="radio" name="attendance_auth" value="not_foolproof" required> Not foolproof at all</label>
+            <h3>From an administrative perspective, what are the most common issues with the current ID system?</h3>
+            <div class="checkbox-group">
+              <label class="checkbox-option"><input type="checkbox" name="admin_issues" value="manual_data_entry"> Manual data entry</label>
+              <label class="checkbox-option"><input type="checkbox" name="admin_issues" value="long_onboarding_process"> Long onboarding process</label>
+              <label class="checkbox-option"><input type="checkbox" name="admin_issues" value="security_risks"> Security risks</label>
+              <label class="checkbox-option"><input type="checkbox" name="admin_issues" value="lack_of_reporting_tools"> Lack of reporting tools</label>
+              <label class="checkbox-option"><input type="checkbox" name="admin_issues" value="student_data_synchronization"> Student data synchronization</label>
             </div>
           </div>
 
           <div class="question">
-            <h3>2. How foolproof is it for you to protect against student card swapping?</h3>
+            <h3>How would you rate the efficiency of the current ID verification process?</h3>
             <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="card_swapping" value="very_foolproof" required> Very foolproof</label>
-              <label class="radio-option"><input type="radio" name="card_swapping" value="mostly_foolproof" required> Mostly foolproof</label>
+              <label class="radio-option"><input type="radio" name="efficiency_rating" value="highly_efficient" required> Highly efficient</label>
+              <label class="radio-option"><input type="radio" name="efficiency_rating" value="efficient" required> Efficient</label>
+              <label class="radio-option"><input type="radio" name="efficiency_rating" value="neutral" required> Neutral</label>
+              <label class="radio-option"><input type="radio" name="efficiency_rating" value="inefficient" required> Inefficient</label>
+              <label class="radio-option"><input type="radio" name="efficiency_rating" value="very_inefficient" required> Very inefficient</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <h3>What new features are most important to you in a campus ID system? (Select all that apply)</h3>
+            <div class="checkbox-group">
+              <label class="checkbox-option"><input type="checkbox" name="admin_features" value="centralized_management"> Centralized management</label>
+              <label class="checkbox-option"><input type="checkbox" name="admin_features" value="real_time_tracking"> Real-time tracking</label>
+              <label class="checkbox-option"><input type="checkbox" name="admin_features" value="automated_reporting"> Automated reporting</label>
+              <label class="checkbox-option"><input type="checkbox" name="admin_features" value="third_party_integration"> Third-party integration</label>
+              <label class="checkbox-option"><input type="checkbox" name="admin_features" value="enhanced_security"> Enhanced security</label>
+            </div>
+          </div>
+
+          <div class="question">
+            <h3>In your opinion, how foolproof is the current ID card against unauthorized use or card swapping?</h3>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="card_swapping" value="completely_foolproof" required> Completely foolproof</label>
               <label class="radio-option"><input type="radio" name="card_swapping" value="somewhat_foolproof" required> Somewhat foolproof</label>
               <label class="radio-option"><input type="radio" name="card_swapping" value="not_very_foolproof" required> Not very foolproof</label>
               <label class="radio-option"><input type="radio" name="card_swapping" value="not_foolproof" required> Not foolproof at all</label>
@@ -73,15 +148,44 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Generates the QR code for the survey link
       QRCode.toCanvas(document.getElementById('adminQR'), window.location.href, { width: 200 });
     });
-    document.getElementById('adminForm').addEventListener('submit', e => {
-      e.preventDefault();
-      document.getElementById('adminSuccess').style.display = 'block';
-      e.target.reset();
-      setTimeout(()=>document.getElementById('adminSuccess').style.display='none',5000);
+
+    // Get the form element
+    const adminForm = document.getElementById('adminForm');
+    // Get the success message element
+    const successMessage = document.getElementById('adminSuccess');
+
+    // Add a submit event listener to the form
+    adminForm.addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent the default form submission (page reload)
+
+      const formData = new FormData(this);
+
+      fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          // Show the success message on a successful submission
+          successMessage.style.display = 'block';
+          adminForm.reset(); // Reset the form fields
+          setTimeout(() => successMessage.style.display = 'none', 5000); // Hide message after 5 seconds
+        } else {
+          // Handle errors
+          alert('An error occurred. Please try again.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please check your internet connection and try again.');
+      });
     });
   </script>
 </body>
 </html>
-

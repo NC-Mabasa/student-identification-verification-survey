@@ -1,201 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Survey</title>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-  <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
-    .container { max-width: 800px; margin: 0 auto; }
-    .header { text-align: center; color: white; margin-bottom: 40px; }
-    .header h1 { font-size: 2em; margin-bottom: 10px; }
-    .survey-card { background: white; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
-    .survey-header { padding: 30px; text-align: center; background: linear-gradient(45deg, #667eea, #764ba2); color: white; }
-    .survey-content { padding: 30px; }
-    .question { margin-bottom: 25px; }
-    .question h3 { color: #333; margin-bottom: 10px; font-weight: 600; }
-    .radio-group, .checkbox-group { display: flex; flex-wrap: wrap; gap: 10px; }
-    .radio-option, .checkbox-option {
-      background-color: #f0f0f0;
-      padding: 12px 20px;
-      border-radius: 15px;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
-      font-size: 0.9em;
-      color: #555;
-    }
-    .radio-option:hover, .checkbox-option:hover { background-color: #e0e0e0; transform: translateY(-2px); }
-    .radio-option input[type="radio"], .checkbox-option input[type="checkbox"] { display: none; }
-    .radio-option input[type="radio"]:checked + span::before, .checkbox-option input[type="checkbox"]:checked + span::before {
-      content: '✓';
-      display: inline-block;
-      margin-right: 5px;
-      color: #764ba2;
-      font-size: 1.2em;
-    }
-    .radio-option input[type="radio"]:checked, .checkbox-option input[type="checkbox"]:checked {
-      background-color: #764ba2;
-      color: white;
-    }
-    .radio-option input[type="radio"]:checked + span, .checkbox-option input[type="checkbox"]:checked + span { color: white; }
-    .text-input { width: 95%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em; }
-    .text-input:focus { outline: none; border-color: #764ba2; box-shadow: 0 0 5px rgba(118, 75, 162, 0.5); }
-    .submit-btn {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      background: #764ba2;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 1.1em;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .submit-btn:hover { background: #5c3882; }
-    .qr-section { text-align: center; margin-top: 30px; padding: 20px; background: white; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-    .qr-code { width: 200px; height: 200px; margin: 20px auto; }
-    .success-message {
-      display: none;
-      margin-top: 20px;
-      padding: 15px;
-      background-color: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-      border-radius: 10px;
-      text-align: center;
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Survey - Student Verification & Identification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .survey-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        .survey-header {
+            padding: 30px;
+            text-align: center;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+        .survey-header h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        .survey-header p {
+            opacity: 0.9;
+        }
+        .survey-content {
+            padding: 30px;
+        }
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+        .question h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .radio-option:hover {
+            border-color: #667eea;
+            background: #f0f2ff;
+        }
+        .radio-option input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .text-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            resize: vertical;
+            min-height: 80px;
+        }
+        .text-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 1px solid #c3e6cb;
+            text-align: center;
+        }
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .nav-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>Student Survey</h1>
-      <p>Your feedback on our campus ID system is invaluable.</p>
+    <div class="container">
+        <div class="header">
+            <h1>&#x1F393; Student Survey</h1>
+            <p>Student identification and card usage experience</p>
+        </div>
+        <div class="survey-card">
+            <div class="survey-header">
+                <h2>Student Verification Survey</h2>
+                <p>Help us improve campus identification and verification processes</p>
+            </div>
+            <div class="survey-content">
+                <form id="studentForm" action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="d848b72f-0818-4483-82d1-7a020667327e">
+                    <input type="hidden" name="subject" value="Student Survey Submission">
+                    <div class="question">
+                        <h3>1. Have you ever lost/forgotten your student card?</h3>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="lost_forgotten" value="never" required>
+                                Never - I always have my card with me
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="lost_forgotten" value="rarely" required>
+                                Rarely - Once or twice in my time here
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="lost_forgotten" value="occasionally" required>
+                                Occasionally - A few times per year
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="lost_forgotten" value="frequently" required>
+                                Frequently - Multiple times per semester
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="lost_forgotten" value="very_frequently" required>
+                                Very frequently - Weekly or more often
+                            </label>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <h3>2. How easy is it, or was it, or do you think it would be for you to identify yourself upon request (if you forgot your student card, if you lost it, or if it were worn out)?</h3>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="identify_without_card" value="very_easy" required>
+                                Very easy - I have multiple forms of backup ID
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="identify_without_card" value="easy" required>
+                                Easy - I usually have other ID or ways to prove identity
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="identify_without_card" value="moderate" required>
+                                Moderate - Sometimes possible, sometimes not
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="identify_without_card" value="difficult" required>
+                                Difficult - I rarely have alternative identification
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="identify_without_card" value="very_difficult" required>
+                                Very difficult - I depend entirely on my student card
+                            </label>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <h3>Additional Comments (Optional)</h3>
+                        <textarea class="text-input" name="student_comments" placeholder="Please share any additional thoughts about student card usage or identification challenges..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Student Survey</button>
+                    <div class="success-message" id="studentSuccess">
+                        &#x2705; Thank you! Your student response has been recorded.
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="navigation">
+            <a href="main_page.html" class="nav-link">← Back to Main Page</a>
+            <a href="admin-survey.html" class="nav-link">Administrator Survey →</a>
+        </div>
     </div>
-
-    <div class="survey-card">
-      <div class="survey-header">
-        <h2>Student Feedback</h2>
-      </div>
-
-      <div class="survey-content">
-        <form id="studentForm" action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="d848b72f-0818-4483-82d1-7a020667327e">
-
-          <div class="question">
-            <h3>How often do you use your student ID card for on-campus services?</h3>
-            <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="usage_frequency" value="multiple_times_a_day" required> Multiple times a day</label>
-              <label class="radio-option"><input type="radio" name="usage_frequency" value="once_a_day" required> Once a day</label>
-              <label class="radio-option"><input type="radio" name="usage_frequency" value="a_few_times_a_week" required> A few times a week</label>
-              <label class="radio-option"><input type="radio" name="usage_frequency" value="less_than_once_a_week" required> Less than once a week</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>How easy is it to use your ID card for accessing services?</h3>
-            <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="ease_of_use" value="very_easy" required> Very easy</label>
-              <label class="radio-option"><input type="radio" name="ease_of_use" value="easy" required> Easy</label>
-              <label class="radio-option"><input type="radio" name="ease_of_use" value="neutral" required> Neutral</label>
-              <label class="radio-option"><input type="radio" name="ease_of_use" value="difficult" required> Difficult</label>
-              <label class="radio-option"><input type="radio" name="ease_of_use" value="very_difficult" required> Very difficult</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>What improvements would you like to see in a new campus ID system? (Select all that apply)</h3>
-            <div class="checkbox-group">
-              <label class="checkbox-option"><input type="checkbox" name="improvements" value="mobile_access"> Mobile access</label>
-              <label class="checkbox-option"><input type="checkbox" name="improvements" value="biometric_verification"> Biometric verification</label>
-              <label class="checkbox-option"><input type="checkbox" name="improvements" value="digital_wallet_integration"> Digital wallet integration</label>
-              <label class="checkbox-option"><input type="checkbox" name="improvements" value="multi_use_functionality"> Multi-use functionality</label>
-              <label class="checkbox-option"><input type="checkbox" name="improvements" value="better_physical_card_design"> Better physical card design</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>How often have you forgotten or lost your student ID card?</h3>
-            <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="forget_frequency" value="frequently" required> Frequently</label>
-              <label class="radio-option"><input type="radio" name="forget_frequency" value="sometimes" required> Sometimes</label>
-              <label class="radio-option"><input type="radio" name="forget_frequency" value="rarely" required> Rarely</label>
-              <label class="radio-option"><input type="radio" name="forget_frequency" value="never" required> Never</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>How easy would it be to identify yourself for services without your physical ID card today?</h3>
-            <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="identify_without_card" value="very_easy" required> Very easy</label>
-              <label class="radio-option"><input type="radio" name="identify_without_card" value="easy" required> Easy</label>
-              <label class="radio-option"><input type="radio" name="identify_without_card" value="moderate" required> Moderate</label>
-              <label class="radio-option"><input type="radio" name="identify_without_card" value="difficult" required> Difficult</label>
-              <label class="radio-option"><input type="radio" name="identify_without_card" value="very_difficult" required> Very difficult</label>
-            </div>
-          </div>
-
-          <div class="question">
-            <h3>Additional Comments (Optional)</h3>
-            <textarea class="text-input" name="student_comments"></textarea>
-          </div>
-
-          <button type="submit" class="submit-btn">Submit</button>
-          <div class="success-message" id="studentSuccess">✅ Thank you! Your response has been recorded.</div>
-        </form>
-      </div>
-
-      <div class="qr-section">
-        <h3>📱 Survey QR Code</h3>
-        <div class="qr-code" id="studentQR"></div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Generates the QR code for the survey link
-      QRCode.toCanvas(document.getElementById('studentQR'), window.location.href, { width: 200 });
-    });
-
-    // Get the form element
-    const studentForm = document.getElementById('studentForm');
-    // Get the success message element
-    const successMessage = document.getElementById('studentSuccess');
-
-    // Add a submit event listener to the form
-    studentForm.addEventListener('submit', function(e) {
-      e.preventDefault(); // Prevent the default form submission (page reload)
-
-      const formData = new FormData(this);
-
-      fetch(this.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          // Show the success message on a successful submission
-          successMessage.style.display = 'block';
-          studentForm.reset(); // Reset the form fields
-          setTimeout(() => successMessage.style.display = 'none', 5000); // Hide message after 5 seconds
-        } else {
-          // Handle errors (e.g., show an error message)
-          alert('An error occurred. Please try again.');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred. Please check your internet connection and try again.');
-      });
-    });
-  </script>
+    <script>
+        const form = document.getElementById('studentForm');
+        const successMessage = document.getElementById('studentSuccess');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    successMessage.style.display = 'block';
+                    form.reset();
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                } else {
+                    console.error('Error submitting form:', response);
+                    alert('An error occurred. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Network or fetch error:', error);
+                alert('An error occurred. Please check your internet connection and try again.');
+            });
+        });
+    </script>
 </body>
 </html>

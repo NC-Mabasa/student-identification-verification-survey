@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Survey QR Code</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -29,7 +31,7 @@
             color: #666;
             margin-bottom: 20px;
         }
-        img {
+        canvas {
             border: 1px solid #ddd;
             border-radius: 5px;
             width: 250px;
@@ -40,8 +42,17 @@
 <body>
     <div class="qr-card">
         <h1>Student Survey QR Code</h1>
-        <p>Scan to go to the survey landing page.</p>
-        <img src="https://quickchart.io/qr?text=https://nc-mabasa.github.io/student-identification-verification-survey/main_page.html?survey=student" alt="Student Survey QR Code">
+        <p>Scan this QR code to access the student survey.</p>
+        <canvas id="qrCode"></canvas>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const qrCodeUrl = window.location.protocol + '//' + window.location.host + '/main_page.html?survey=student';
+            QRCode.toCanvas(document.getElementById('qrCode'), qrCodeUrl, {
+                width: 250,
+                margin: 2
+            });
+        });
+    </script>
 </body>
 </html>

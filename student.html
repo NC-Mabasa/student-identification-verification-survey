@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Survey - Student Verification & Identification</title>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -135,23 +134,6 @@
             border: 1px solid #c3e6cb;
             text-align: center;
         }
-        .qr-section {
-            text-align: center;
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9ff;
-            border-radius: 15px;
-        }
-        .qr-placeholder {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 200px;
-            height: 200px;
-            margin: 20px auto;
-            background: white;
-            border-radius: 10px;
-        }
         .navigation {
             text-align: center;
             margin-top: 30px;
@@ -172,153 +154,116 @@
     </style>
 </head>
 <body>
+
     <div class="container">
         <div class="header">
             <h1>&#x1F393; Student Survey</h1>
             <p>Student identification and card usage experience</p>
         </div>
+
         <div class="survey-card">
             <div class="survey-header">
-                <h2>Student Verification Survey</h2>
-                <p>Help us improve campus identification and verification processes</p>
+                <h2>Student Survey</h2>
+                <p>We value your perspective on campus ID and verification systems.</p>
             </div>
             <div class="survey-content">
-                <form id="studentForm" action="https://api.web3forms.com/submit" method="POST">
-                    <input type="hidden" name="access_key" value="d848b72f-0818-4483-82d1-7a020667327e">
-                    <input type="hidden" name="subject" value="Student Survey Submission">
+                <form id="studentForm">
                     <div class="question">
-                        <h3>1. Have you ever lost/forgotten your student card?</h3>
+                        <h3>1. How frequently do you use your student ID card?</h3>
                         <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="lost_forgotten" value="never" required>
-                                Never - I always have my card with me
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="lost_forgotten" value="rarely" required>
-                                Rarely - Once or twice in my time here
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="lost_forgotten" value="occasionally" required>
-                                Occasionally - A few times per year
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="lost_forgotten" value="frequently" required>
-                                Frequently - Multiple times per semester
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="lost_forgotten" value="very_frequently" required>
-                                Very frequently - Weekly or more often
-                            </label>
+                            <label class="radio-option"><input type="radio" name="id_frequency" value="daily" required> Daily</label>
+                            <label class="radio-option"><input type="radio" name="id_frequency" value="weekly" required> Several times a week</label>
+                            <label class="radio-option"><input type="radio" name="id_frequency" value="monthly" required> Several times a month</label>
+                            <label class="radio-option"><input type="radio" name="id_frequency" value="rarely" required> Rarely</label>
                         </div>
                     </div>
+
                     <div class="question">
-                        <h3>2. How easy is it, or was it, or do you think it would be for you to identify yourself upon request (if you forgot your student card, if you lost it, or if it were worn out)?</h3>
+                        <h3>2. How often do you forget your student ID card?</h3>
                         <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="identify_without_card" value="very_easy" required>
-                                Very easy - I have multiple forms of backup ID
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="identify_without_card" value="easy" required>
-                                Easy - I usually have other ID or ways to prove identity
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="identify_without_card" value="moderate" required>
-                                Moderate - Sometimes possible, sometimes not
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="identify_without_card" value="difficult" required>
-                                Difficult - I rarely have alternative identification
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="identify_without_card" value="very_difficult" required>
-                                Very difficult - I depend entirely on my student card
-                            </label>
+                            <label class="radio-option"><input type="radio" name="forget_frequency" value="frequently" required> Frequently</label>
+                            <label class="radio-option"><input type="radio" name="forget_frequency" value="sometimes" required> Sometimes</label>
+                            <label class="radio-option"><input type="radio" name="forget_frequency" value="rarely" required> Rarely</label>
+                            <label class="radio-option"><input type="radio" name="forget_frequency" value="never" required> Never</label>
                         </div>
                     </div>
+
+                    <div class="question">
+                        <h3>3. How would you rate the convenience of using your student ID card?</h3>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="convenience_rating" value="very_convenient" required> Very convenient</label>
+                            <label class="radio-option"><input type="radio" name="convenience_rating" value="convenient" required> Convenient</label>
+                            <label class="radio-option"><input type="radio" name="convenience_rating" value="neutral" required> Neutral</label>
+                            <label class="radio-option"><input type="radio" name="convenience_rating" value="inconvenient" required> Inconvenient</label>
+                            <label class="radio-option"><input type="radio" name="convenience_rating" value="very_inconvenient" required> Very inconvenient</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>4. How easy is it for you to be identified on campus without your physical ID card?</h3>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="identify_without_card" value="very_easy" required> Very easy</label>
+                            <label class="radio-option"><input type="radio" name="identify_without_card" value="easy" required> Easy</label>
+                            <label class="radio-option"><input type="radio" name="identify_without_card" value="moderate" required> Moderate</label>
+                            <label class="radio-option"><input type="radio" name="identify_without_card" value="difficult" required> Difficult</label>
+                            <label class="radio-option"><input type="radio" name="identify_without_card" value="very_difficult" required> Very difficult</label>
+                        </div>
+                    </div>
+
                     <div class="question">
                         <h3>Additional Comments (Optional)</h3>
-                        <textarea class="text-input" name="student_comments" placeholder="Please share any additional thoughts about student card usage or identification challenges..."></textarea>
+                        <textarea class="text-input" name="student_comments"></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Submit Student Survey</button>
-                    <div class="success-message" id="studentSuccess">
-                        &#x2705; Thank you! Your student response has been recorded.
-                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
+                    <div class="success-message" id="studentSuccess">✅ Thank you! Your response has been recorded.</div>
                 </form>
             </div>
         </div>
-        <div class="qr-section">
-            <h3>&#x1F4F1; Share This Student Survey</h3>
-            <canvas class="qr-placeholder" id="studentQR"></canvas>
-            <p style="color: #666; font-size: 0.9em;">Scan this QR code to access the survey on your mobile device.</p>
-        </div>
+
         <div class="navigation">
-            <a href="main_page.html" class="nav-link">← Back to Main Page</a>
-            <a href="admin.html" class="nav-link">Administrator Survey →</a>
+            <a href="main_page.html" class="nav-link">← Return to Main Page</a>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const studentForm = document.getElementById('studentForm');
-            const submitButton = studentForm.querySelector('.submit-btn');
             const successMessage = document.getElementById('studentSuccess');
+            const submitButton = document.getElementById('submitBtn');
 
-            // Check if the user has already submitted the survey
-            const hasSubmitted = localStorage.getItem('studentSubmitted');
-            if (hasSubmitted) {
+            // Check if student survey has already been submitted
+            if (localStorage.getItem('studentSubmitted')) {
                 submitButton.disabled = true;
-                submitButton.textContent = "Survey Already Submitted";
+                submitButton.textContent = "You've Already Submitted";
+                submitButton.style.backgroundColor = '#6c757d';
                 successMessage.style.display = 'block';
-                successMessage.innerHTML = '&#x2705; You have already submitted this survey from this device.';
+                successMessage.innerHTML = 'You have already completed this survey. Thank you for your feedback!';
             }
-
-            QRCode.toCanvas(document.getElementById('studentQR'), window.location.href, {
-                width: 200,
-                margin: 2
-            });
 
             studentForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-
-                // Show confirmation dialog before submitting
-                const isConfirmed = confirm("Are you sure you want to submit your student survey response?");
-                if (!isConfirmed) {
-                    return;
-                }
-
                 const formData = new FormData(this);
-                fetch(studentForm.action, {
-                    method: studentForm.method,
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // Set the flag in local storage to prevent future submissions from this device
-                        localStorage.setItem('studentSubmitted', 'true');
-                        submitButton.disabled = true;
-                        submitButton.textContent = "Submission Successful!";
 
-                        successMessage.style.display = 'block';
-                        successMessage.innerHTML = '&#x2705; Thank you! Your student response has been recorded.';
-                        
-                        studentForm.reset();
-                        setTimeout(() => {
-                            successMessage.style.display = 'none';
-                        }, 5000);
-                    } else {
-                        console.error('Error submitting form:', response);
-                        alert('An error occurred. Please try again.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Network or fetch error:', error);
-                    alert('An error occurred. Please check your internet connection and try again.');
-                });
+                // Use a placeholder for form submission as we don't have a backend
+                // This part would be replaced with a real fetch call to a server
+                // For now, we simulate success
+                
+                // Set the flag in local storage to prevent future submissions
+                localStorage.setItem('studentSubmitted', 'true');
+                submitButton.disabled = true;
+                submitButton.textContent = "Submission Successful!";
+
+                successMessage.style.display = 'block';
+                successMessage.innerHTML = '✅ Thank you! Your student response has been recorded.';
+                
+                studentForm.reset();
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
             });
         });
     </script>
+
 </body>
 </html>

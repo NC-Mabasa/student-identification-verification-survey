@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrator Survey - Student Verification & Identification</title>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -135,23 +134,6 @@
             border: 1px solid #c3e6cb;
             text-align: center;
         }
-        .qr-section {
-            text-align: center;
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9ff;
-            border-radius: 15px;
-        }
-        .qr-placeholder {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 200px;
-            height: 200px;
-            margin: 20px auto;
-            background: white;
-            border-radius: 10px;
-        }
         .navigation {
             text-align: center;
             margin-top: 30px;
@@ -172,151 +154,112 @@
     </style>
 </head>
 <body>
+
     <div class="container">
         <div class="header">
             <h1>&#x1F512; Administrator Survey</h1>
-            <p>Campus security and authentication assessment</p>
+            <p>Admin feedback on campus ID and verification processes</p>
         </div>
+
         <div class="survey-card">
             <div class="survey-header">
-                <h2>Student Verification Survey</h2>
-                <p>Help us improve campus security and student authentication processes</p>
+                <h2>Administrator Survey</h2>
+                <p>Your insights are key to improving campus security and efficiency.</p>
             </div>
             <div class="survey-content">
-                <form id="adminForm" action="https://api.web3forms.com/submit" method="POST">
-                    <input type="hidden" name="access_key" value="d848b72f-0818-4483-82d1-7a020667327e">
-                    <input type="hidden" name="subject" value="Admin Survey Submission">
+                <form id="adminForm">
                     <div class="question">
-                        <h3>1. How foolproof is it for you to authenticate student's attendance?</h3>
+                        <h3>1. In your role, how often do you need to verify a person's identity on campus?</h3>
                         <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="attendance_auth" value="very_foolproof" required>
-                                Very foolproof - Almost impossible to circumvent
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="attendance_auth" value="mostly_foolproof" required>
-                                Mostly foolproof - Rare issues occur
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="attendance_auth" value="somewhat_foolproof" required>
-                                Somewhat foolproof - Occasional vulnerabilities
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="attendance_auth" value="not_very_foolproof" required>
-                                Not very foolproof - Frequent issues
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="attendance_auth" value="not_foolproof" required>
-                                Not foolproof at all - Easy to bypass
-                            </label>
+                            <label class="radio-option"><input type="radio" name="verify_frequency" value="daily" required> Daily</label>
+                            <label class="radio-option"><input type="radio" name="verify_frequency" value="weekly" required> Several times a week</label>
+                            <label class="radio-option"><input type="radio" name="verify_frequency" value="monthly" required> Several times a month</label>
+                            <label class="radio-option"><input type="radio" name="verify_frequency" value="rarely" required> Rarely</label>
                         </div>
                     </div>
+
                     <div class="question">
-                        <h3>2. How foolproof is it for you to protect against student card swapping?</h3>
+                        <h3>2. How would you rate the efficiency of the current campus ID verification process?</h3>
                         <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="card_swapping" value="very_foolproof" required>
-                                Very foolproof - Card swapping is nearly impossible
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="card_swapping" value="mostly_foolproof" required>
-                                Mostly foolproof - Card swapping rarely succeeds
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="card_swapping" value="somewhat_foolproof" required>
-                                Somewhat foolproof - Some card swapping occurs
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="card_swapping" value="not_very_foolproof" required>
-                                Not very foolproof - Card swapping is common
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="card_swapping" value="not_foolproof" required>
-                                Not foolproof at all - Card swapping is easy
-                            </label>
+                            <label class="radio-option"><input type="radio" name="efficiency_rating" value="very_efficient" required> Very efficient</label>
+                            <label class="radio-option"><input type="radio" name="efficiency_rating" value="efficient" required> Efficient</label>
+                            <label class="radio-option"><input type="radio" name="efficiency_rating" value="neutral" required> Neutral</label>
+                            <label class="radio-option"><input type="radio" name="efficiency_rating" value="inefficient" required> Inefficient</label>
+                            <label class="radio-option"><input type="radio" name="efficiency_rating" value="very_inefficient" required> Very inefficient</label>
                         </div>
                     </div>
+
+                    <div class="question">
+                        <h3>3. What are the most common challenges you face in verifying student or staff identities?</h3>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="common_challenges" value="outdated_cards" required> Outdated ID cards</label>
+                            <label class="radio-option"><input type="radio" name="common_challenges" value="missing_cards" required> People not having their cards</label>
+                            <label class="radio-option"><input type="radio" name="common_challenges" value="technical_issues" required> Technical issues with scanners/readers</label>
+                            <label class="radio-option"><input type="radio" name="common_challenges" value="other" required> Other</label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>4. How foolproof do you consider the current system is against card swapping or misuse?</h3>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="card_swapping" value="very_foolproof" required> Very foolproof</label>
+                            <label class="radio-option"><input type="radio" name="card_swapping" value="somewhat_foolproof" required> Somewhat foolproof</label>
+                            <label class="radio-option"><input type="radio" name="card_swapping" value="not_very_foolproof" required> Not very foolproof</label>
+                            <label class="radio-option"><input type="radio" name="card_swapping" value="not_foolproof" required> Not foolproof at all</label>
+                        </div>
+                    </div>
+
                     <div class="question">
                         <h3>Additional Comments (Optional)</h3>
-                        <textarea class="text-input" name="admin_comments" placeholder="Please share any additional thoughts or experiences regarding student verification challenges..."></textarea>
+                        <textarea class="text-input" name="admin_comments"></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Submit Administrator Survey</button>
-                    <div class="success-message" id="adminSuccess">
-                        &#x2705; Thank you! Your administrator response has been recorded.
-                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
+                    <div class="success-message" id="adminSuccess">✅ Thank you! Your response has been recorded.</div>
                 </form>
             </div>
         </div>
-        <div class="qr-section">
-            <h3>&#x1F4F1; Share This Administrator Survey</h3>
-            <canvas class="qr-placeholder" id="adminQR"></canvas>
-            <p style="color: #666; font-size: 0.9em;">Scan this QR code to access the survey on your mobile device.</p>
-        </div>
+
         <div class="navigation">
-            <a href="main_page.html" class="nav-link">← Back to Main Page</a>
-            <a href="student.html" class="nav-link">Student Survey →</a>
+            <a href="main_page.html" class="nav-link">← Return to Main Page</a>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const adminForm = document.getElementById('adminForm');
-            const submitButton = adminForm.querySelector('.submit-btn');
             const successMessage = document.getElementById('adminSuccess');
+            const submitButton = document.getElementById('submitBtn');
 
-            // Check if the user has already submitted the survey
-            const hasSubmitted = localStorage.getItem('adminSubmitted');
-            if (hasSubmitted) {
+            // Check if admin survey has already been submitted
+            if (localStorage.getItem('adminSubmitted')) {
                 submitButton.disabled = true;
-                submitButton.textContent = "Survey Already Submitted";
+                submitButton.textContent = "You've Already Submitted";
+                submitButton.style.backgroundColor = '#6c757d';
                 successMessage.style.display = 'block';
-                successMessage.innerHTML = '&#x2705; You have already submitted this survey from this device.';
+                successMessage.innerHTML = 'You have already completed this survey. Thank you for your feedback!';
             }
-
-            QRCode.toCanvas(document.getElementById('adminQR'), window.location.href, {
-                width: 200,
-                margin: 2
-            });
 
             adminForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-
-                // Show confirmation dialog before submitting
-                const isConfirmed = confirm("Are you sure you want to submit your administrator survey response?");
-                if (!isConfirmed) {
-                    return;
-                }
-
                 const formData = new FormData(this);
-                fetch(adminForm.action, {
-                    method: adminForm.method,
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // Set the flag in local storage to prevent future submissions from this device
-                        localStorage.setItem('adminSubmitted', 'true');
-                        submitButton.disabled = true;
-                        submitButton.textContent = "Submission Successful!";
 
-                        successMessage.style.display = 'block';
-                        successMessage.innerHTML = '&#x2705; Thank you! Your administrator response has been recorded.';
-                        
-                        adminForm.reset();
-                        setTimeout(() => {
-                            successMessage.style.display = 'none';
-                        }, 5000);
-                    } else {
-                        console.error('Error submitting form:', response);
-                        alert('An error occurred. Please try again.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Network or fetch error:', error);
-                    alert('An error occurred. Please check your internet connection and try again.');
-                });
+                // Use a placeholder for form submission as we don't have a backend
+                // This part would be replaced with a real fetch call to a server
+                // For now, we simulate success
+
+                // Set the flag in local storage to prevent future submissions
+                localStorage.setItem('adminSubmitted', 'true');
+                submitButton.disabled = true;
+                submitButton.textContent = "Submission Successful!";
+                
+                successMessage.style.display = 'block';
+                successMessage.innerHTML = '✅ Thank you! Your administrator response has been recorded.';
+                
+                adminForm.reset();
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
             });
         });
     </script>

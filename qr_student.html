@@ -1,154 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Survey QR Code</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .qr-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            max-width: 400px;
-            width: 100%;
-        }
-        
-        .qr-card h1 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-        }
-        
-        .qr-card p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 1.1em;
-            line-height: 1.5;
-        }
-        
-        .qr-container {
-            margin: 25px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 15px;
-            display: inline-block;
-        }
-        
-        .qr-container img {
-            border-radius: 10px;
-        }
-        
-        .direct-link {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 24px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-        
-        .direct-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
-        }
-        
-        .instructions {
-            margin-top: 25px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            color: white;
-        }
-        
-        .instructions h3 {
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-        
-        .instructions ul {
-            text-align: left;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-        
-        .instructions li {
-            margin-bottom: 5px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Survey QR Code</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      background: #f8f9fa;
+    }
+    h1 {
+      color: #0056b3;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #qrcode {
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
-    <div class="qr-card">
-        <h1>🎓 Student Survey QR Code</h1>
-        <p>Scan this QR code to access the student survey directly.</p>
-        
-        <div class="qr-container" id="qrContainer">
-            <div id="qrCode"></div>
-        </div>
-        
-        <a href="#" class="direct-link" id="directLink" onclick="testLink()">Test Direct Link</a>
-        
-        <div class="instructions">
-            <h3>📋 Instructions for Distribution</h3>
-            <ul>
-                <li>Print this page for student areas</li>
-                <li>Students scan → Student survey only</li>
-                <li>No access to admin survey</li>
-                <li>Secure and role-specific</li>
-            </ul>
-        </div>
-    </div>
+  <h1>📱 Scan to Take the Student Survey</h1>
+  <div id="qrcode"></div>
 
-    <script>
-        function generateStudentQR() {
-            // Create the URL that will load the student survey directly
-            const baseUrl = window.location.href.replace(/qr_student\.html.*$/, ''); // Remove current file from path
-            const surveyUrl = baseUrl + 'student.html';
-            
-            // Update the direct link
-            document.getElementById('directLink').href = surveyUrl;
-            
-            // Generate QR code
-            try {
-                const qr = qrcode(0, 'M'); // Error correction level M
-                qr.addData(surveyUrl);
-                qr.make();
-                
-                // Create image element
-                const qrImage = qr.createImgTag(4, 8); // cell size 4, margin 8
-                document.getElementById('qrCode').innerHTML = qrImage;
-                
-                console.log('Student QR code generated for URL:', surveyUrl);
-            } catch (error) {
-                console.error('Error generating QR code:', error);
-                document.getElementById('qrCode').innerHTML = '<p style="color: red;">Error generating QR code</p>';
-            }
-        }
-        
-        function testLink() {
-            const link = document.getElementById('directLink').href;
-            window.open(link, '_blank');
-        }
-        
-        // Generate QR code when page loads
-        document.addEventListener('DOMContentLoaded', generateStudentQR);
-    </script>
+  <!-- QRCode.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    new QRCode(document.getElementById("qrcode"), {
+      text: "https://nc-mabasa.github.io/student-identification-verification-survey/index.html?survey=student",
+      width: 220,
+      height: 220
+    });
+  </script>
 </body>
 </html>

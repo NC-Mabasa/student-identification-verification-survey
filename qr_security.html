@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Survey QR Code</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      background: #f8f9fa;
+    }
+    h1 {
+      color: #0056b3;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #qrcode {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📱 Scan to Take the Security Survey</h1>
+  <div id="qrcode"></div>
+
+  <!-- QRCode.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    new QRCode(document.getElementById("qrcode"), {
+      text: "https://nc-mabasa.github.io/student-identification-verification-survey/index.html?survey=4c61766177616e692069206d7572696e647a6921",
+      width: 220,
+      height: 220
+    });
+  </script>
+</body>
+</html>

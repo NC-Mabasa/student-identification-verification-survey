@@ -5,195 +5,295 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Campus ID & Verification Survey</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      line-height: 1.6;
-      background-color: #f8f9fa;
-      color: #333;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
     }
     .header {
-      background: #0056b3;
-      color: white;
-      padding: 40px 20px;
       text-align: center;
+      color: white;
+      margin-bottom: 40px;
     }
     .header h1 {
-      margin-bottom: 10px;
       font-size: 2.2em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
     .header p {
       font-size: 1.1em;
-    }
-    .purpose {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 20px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .purpose h2 {
-      margin-bottom: 15px;
-      color: #0056b3;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-    .feature {
-      background: #f1f5f9;
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
-    }
-    .feature h3 {
-      margin-bottom: 8px;
-      font-size: 1.1em;
-    }
-    .survey-links {
-      max-width: 900px;
-      margin: 30px auto;
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
+      opacity: 0.9;
     }
     .survey-card {
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding: 30px 20px;
-      width: 280px;
-      text-align: center;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 40px;
     }
-    .survey-card h2 {
-      margin-bottom: 15px;
-      color: #0056b3;
+    .survey-content {
+      padding: 30px;
     }
-    .survey-card p {
-      font-size: 0.95em;
-      color: #555;
-      margin-bottom: 15px;
-    }
-    .survey-card a {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
-      background: #0056b3;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: background 0.2s ease;
-    }
-    .survey-card a:hover {
-      background: #003d80;
-    }
-    .survey-card a.disabled {
-      background: #ccc;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-    .notice {
-      margin-top: 10px;
-      font-size: 0.85em;
-      color: #28a745;
-      font-weight: 600;
-      display: none;
-    }
-    footer {
-      text-align: center;
+    .question {
+      margin-bottom: 25px;
       padding: 20px;
-      margin-top: 40px;
-      background: #f1f1f1;
-      font-size: 0.9em;
+      background: #f8f9ff;
+      border-radius: 15px;
+      border-left: 4px solid #667eea;
+    }
+    .question h3 {
+      color: #333;
+      margin-bottom: 15px;
+      font-size: 1.1em;
+    }
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .radio-option {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      background: white;
+      border-radius: 10px;
+      border: 2px solid #e0e0e0;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .radio-option:hover {
+      border-color: #667eea;
+      background: #f0f2ff;
+    }
+    .radio-option input[type="radio"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+    .text-input {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+      resize: vertical;
+      min-height: 80px;
+    }
+    .text-input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+    .success-message {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      border: 1px solid #c3e6cb;
+      text-align: center;
+    }
+    .countdown {
+      font-weight: bold;
+      color: #0056b3;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <h1>Student Campus ID & Verification Survey</h1>
-    <p>Help us build a safer, smarter, and more convenient student campus ID system by sharing your feedback.</p>
-  </div>
+  <div class="container">
+    <div class="header">
+      <h1>Student Campus ID & Verification Survey</h1>
+      <p>Help us improve campus identification and verification systems.</p>
+    </div>
 
-  <div class="purpose">
-    <h2>📋 Why Your Input Matters</h2>
-    <p>We’re gathering insights from students, lecturers, and security personnel to improve how identification and verification work on campus. Your voice helps shape systems that are secure, simple, and designed with you in mind.</p>
-    
-    <div class="features">
-      <div class="feature">
-        <h3>🔒 Anonymous & Secure</h3>
-        <p>Your privacy is always protected</p>
-      </div>
-      <div class="feature">
-        <h3>📱 Mobile-Friendly</h3>
-        <p>Answer easily on any device</p>
-      </div>
-      <div class="feature">
-        <h3>⚡ Quick</h3>
-        <p>Just 2–3 minutes to complete</p>
-      </div>
-      <div class="feature">
-        <h3>💡 Impactful</h3>
-        <p>Your feedback guides real improvements</p>
+    <div class="survey-card" id="surveyCard" style="display:none;">
+      <div class="survey-content">
+        <form id="studentForm">
+          <!-- Web3Forms Access Key -->
+          <input type="hidden" name="access_key" value="d848b72f-0818-4483-82d1-7a020667327e">
+
+          <!-- Question 1 -->
+          <div class="question">
+            <h3>1. Have you ever forgotten, lost, or had your student card worn out?</h3>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="lost_card" value="yes" required> Yes</label>
+              <label class="radio-option"><input type="radio" name="lost_card" value="no" required> No</label>
+            </div>
+          </div>
+
+          <!-- Question 2 if YES -->
+          <div class="question" id="q2-yes" style="display:none;">
+            <h3>2. How easy was it for you to identify yourself upon request?</h3>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="identify_request" value="very_easy"> Very easy</label>
+              <label class="radio-option"><input type="radio" name="identify_request" value="easy"> Easy</label>
+              <label class="radio-option"><input type="radio" name="identify_request" value="moderate"> Moderate</label>
+              <label class="radio-option"><input type="radio" name="identify_request" value="difficult"> Difficult</label>
+              <label class="radio-option"><input type="radio" name="identify_request" value="very_difficult"> Very difficult</label>
+            </div>
+          </div>
+
+          <!-- Question 2 if NO -->
+          <div class="question" id="q2-no" style="display:none;">
+            <h3>2. How easy do you think it would be for you to identify yourself upon request if you were to forget, lose, or have your student card wear out?</h3>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="identify_request" value="very_easy"> Very easy</label>
+              <label class="radio-option"><input type="radio" name="identify_request" value="easy"> Easy</label>
+              <label class="radio-option"><input type="radio" name="identify_request" value="moderate"> Moderate</label>
+              <label class="radio-option"><input type="radio" name="identify_request" value="difficult"> Difficult</label>
+              <label class="radio-option"><input type="radio" name="identify_request" value="very_difficult"> Very difficult</label>
+            </div>
+          </div>
+
+          <!-- Additional comments -->
+          <div class="question">
+            <h3>Additional Comments (Optional)</h3>
+            <textarea class="text-input" name="student_comments" placeholder="Add any comments or suggestions here..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
+          <div class="success-message" id="studentSuccess">
+            ✅ Thank you! Your response has been recorded.
+            <div class="countdown" id="countdown"></div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-
-  <div class="survey-links">
-    <div class="survey-card" id="student-card">
-      <h2>Student Survey</h2>
-      <p>Share your experiences using your student ID for campus access and services.</p>
-      <a href="student_survey.html" id="student-link" class="disabled">Take Student Survey</a>
-      <div id="student-notice" class="notice">✔ This is your assigned survey</div>
-    </div>
-    <div class="survey-card" id="lecturer-card">
-      <h2>Lecturer Survey</h2>
-      <p>Provide input on how student ID systems affect attendance and classroom processes.</p>
-      <a href="lecturer_survey.html" id="lecturer-link" class="disabled">Take Lecturer Survey</a>
-      <div id="lecturer-notice" class="notice">✔ This is your assigned survey</div>
-    </div>
-    <div class="survey-card" id="security-card">
-      <h2>Security Personnel Survey</h2>
-      <p>Share your perspective on student ID verification for campus entry and safety.</p>
-      <a href="security_survey.html" id="security-link" class="disabled">Take Security Survey</a>
-      <div id="security-notice" class="notice">✔ This is your assigned survey</div>
-    </div>
-  </div>
-
-  <footer>
-    <p>© 2025 Campus ID Research Project</p>
-  </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const surveyType = urlParams.get('survey');
+      // Non-guessable tokens for surveys
+      const surveyTokens = {
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": "student", 
+        "d2719b82-0a34-42f3-9e90-f012f3456789": "lecturer",
+        "7c98a3e0-5df4-11ee-8c99-0242ac120002": "security"
+      };
 
-      const studentLink = document.getElementById('student-link');
-      const lecturerLink = document.getElementById('lecturer-link');
-      const securityLink = document.getElementById('security-link');
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get("survey");
 
-      const studentNotice = document.getElementById('student-notice');
-      const lecturerNotice = document.getElementById('lecturer-notice');
-      const securityNotice = document.getElementById('security-notice');
-
-      // Enable only the matching survey and show notice
-      if (surveyType === 'student') {
-        studentLink.classList.remove('disabled');
-        studentNotice.style.display = 'block';
-      } else if (surveyType === 'lecturer') {
-        lecturerLink.classList.remove('disabled');
-        lecturerNotice.style.display = 'block';
-      } else if (surveyType === 'security') {
-        securityLink.classList.remove('disabled');
-        securityNotice.style.display = 'block';
+      if (!surveyTokens[token]) {
+        document.body.innerHTML = "<h2 style='color:white;text-align:center;margin-top:20%;'>🚫 Invalid or unauthorized survey link.</h2>";
+        return;
       }
+
+      // Show survey only if token matches a valid role
+      document.getElementById("surveyCard").style.display = "block";
+
+      const studentForm = document.getElementById('studentForm');
+      const successMessage = document.getElementById('studentSuccess');
+      const submitButton = document.getElementById('submitBtn');
+
+      const q2Yes = document.getElementById("q2-yes");
+      const q2No = document.getElementById("q2-no");
+
+      // Block multiple submissions
+      if (localStorage.getItem('studentSubmitted')) {
+        submitButton.disabled = true;
+        submitButton.textContent = "You've Already Submitted";
+        submitButton.style.backgroundColor = '#6c757d';
+        successMessage.style.display = 'block';
+        successMessage.innerHTML = 'You have already completed this survey. Thank you for your feedback!';
+        return;
+      }
+
+      // Conditional Q2
+      document.querySelectorAll('input[name="lost_card"]').forEach(input => {
+        input.addEventListener("change", () => {
+          if (input.checked && input.value === "yes") {
+            q2Yes.style.display = "block";
+            q2No.style.display = "none";
+          } else if (input.checked && input.value === "no") {
+            q2Yes.style.display = "none";
+            q2No.style.display = "block";
+          }
+        });
+      });
+
+      // Handle submit
+      studentForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        if (!confirm("Are you sure you want to submit? The survey will exit automatically after submission.")) {
+          return;
+        }
+
+        const formData = new FormData(studentForm);
+
+        try {
+          const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: formData
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            // Prevent future submissions
+            localStorage.setItem('studentSubmitted', 'true');
+
+            submitButton.disabled = true;
+            submitButton.textContent = "Submission Successful!";
+            successMessage.style.display = 'block';
+            successMessage.innerHTML = '✅ Thank you! Your student response has been recorded.<div class="countdown" id="countdown"></div>';
+
+            // Countdown exit
+            let timeLeft = 10;
+            const countdownEl = document.getElementById('countdown');
+            countdownEl.textContent = `Exiting in ${timeLeft} seconds...`;
+
+            const countdownTimer = setInterval(() => {
+              timeLeft--;
+              countdownEl.textContent = `Exiting in ${timeLeft} seconds...`;
+              if (timeLeft <= 0) {
+                clearInterval(countdownTimer);
+                window.close();
+                window.location.href = "about:blank";
+              }
+            }, 1000);
+
+            studentForm.reset();
+            q2Yes.style.display = "none";
+            q2No.style.display = "none";
+          } else {
+            alert("Submission failed: " + result.message);
+          }
+        } catch (error) {
+          alert("An error occurred while submitting the form.");
+          console.error(error);
+        }
+      });
     });
   </script>
 

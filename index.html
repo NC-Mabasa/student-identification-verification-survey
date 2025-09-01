@@ -184,13 +184,16 @@
       const securityNotice = document.getElementById('security-notice');
 
       // Enable only the matching survey and show notice
-      if (surveyType === 'student') {
+      // first one = student
+      // second = lecturer
+      // third = security
+      if (surveyType === '49206d7564796f6e647a69206c6f796977616e21') {
         studentLink.classList.remove('disabled');
         studentNotice.style.display = 'block';
       } else if (surveyType === '4d7564796f6e647a697369') {
         lecturerLink.classList.remove('disabled');
         lecturerNotice.style.display = 'block';
-      } else if (surveyType === 'security') {
+      } else if (surveyType === '4c61766177616e692069206d7572696e647a6921') {
         securityLink.classList.remove('disabled');
         securityNotice.style.display = 'block';
       }
